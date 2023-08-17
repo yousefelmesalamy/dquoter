@@ -55,10 +55,15 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
+    author_name = serializers.CharField(source='author.name', read_only=True)
     class Meta:
         model = Book
-        fields = '__all__'
+        fields = ['id', 'author', 'name', 'image', 'author_name']
 
+    def validate_name(self, value):
+        if Book.objects.filter(name=value).exists():
+            raise serializers.ValidationError("Book already exists")
+        return value
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:

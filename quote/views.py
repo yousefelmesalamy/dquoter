@@ -34,6 +34,13 @@ def author_list(request):
     authors = Author.objects.all()
     context = {'authors': authors}
     return render(request, 'author_list.html', context)
+
+def home_view(request):
+    authors = Author.objects.all()
+    context = {'authors': authors}
+    return render(request, 'test.html', context)
+
+
 # class StandardResultsSetPagination(PageNumberPagination):
 #     page_size = 20
 #     page_size_query_param = 'page_size'

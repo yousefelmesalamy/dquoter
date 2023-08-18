@@ -17,4 +17,5 @@ urlpatterns = [
     # path("login/", CustomAuthToken.as_view()),
 
     path('authors/', author_list, name='author-list'),
+    path('home_view/', home_view, name='home-view'),
 ]

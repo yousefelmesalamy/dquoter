@@ -130,7 +130,7 @@ class QuoteViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
     search_fields = ['quote', 'content', 'author__name', 'author__title', 'author__genre', 'book__name', 'tag__name',
                      'category__name', ]
-    filterset_fields = ['id', 'quote', 'content', 'author__name', 'author__title', 'author__genre', 'book__name', ]
+    filterset_fields = ['id',]
     lookup_field = 'id'
     ordering_fields = ['quote', 'content', 'author__name', 'author__title', 'author__genre', 'book__name',
                        'tag__name', ]

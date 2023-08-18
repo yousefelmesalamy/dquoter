@@ -73,12 +73,20 @@ class Book(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Book'
+        verbose_name_plural = 'Books'
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tags'
 
 
 class Category(models.Model):
@@ -87,18 +95,26 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
 
 class Quote(models.Model):
     content = models.TextField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='quotes')
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book', blank=True, null=True)
     upload_time = models.DateTimeField(auto_now=True)
-    tag = models.ManyToManyField(Tag,  related_name='quotes')
+    tag = models.ManyToManyField(Tag, related_name='quotes')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='quotes')
     image = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.content
+
+    class Meta:
+        verbose_name = 'Quote'
+        verbose_name_plural = 'Quotes'
 
 
 class interact(models.Model):
@@ -108,6 +124,10 @@ class interact(models.Model):
 
     def __str__(self):
         return self.user.username + self.quote.content
+
+    class Meta:
+        verbose_name = 'Interaction'
+        verbose_name_plural = 'Interactions'
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

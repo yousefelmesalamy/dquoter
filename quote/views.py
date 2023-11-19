@@ -10,7 +10,6 @@ from .permissons import UserPermission
 from rest_framework import filters
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.pagination import PageNumberPagination
 
 
 # Create your views here.
@@ -41,10 +40,7 @@ class CustomAuthToken(ObtainAuthToken):
 #     return render(request, 'test.html', context)
 
 
-class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 20
-    page_size_query_param = 'page_size'
-    max_page_size = 1000
+
 
 
 # work as viewsets
@@ -53,7 +49,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [UserPermission]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    pagination_class = StandardResultsSetPagination
     search_fields = ['username', 'email']
     filterset_fields = ['id', 'username', 'email']
     lookup_field = 'id'
@@ -73,7 +68,6 @@ class AuthorViewSet(viewsets.ModelViewSet):
     serializer_class = AuthorSerializer
     permission_classes = [UserPermission]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    pagination_class = StandardResultsSetPagination
     search_fields = ['name', 'title', 'genre']
     filterset_fields = ['id', 'name', 'title', 'genre']
     lookup_field = 'id'
@@ -89,7 +83,6 @@ class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     permission_classes = [UserPermission]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    pagination_class = StandardResultsSetPagination
     search_fields = ['name', ]
     filterset_fields = ['id', 'name']
     lookup_field = 'id'
@@ -105,7 +98,6 @@ class TagViewSet(viewsets.ModelViewSet):
     serializer_class = TagSerializer
     permission_classes = [UserPermission]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    pagination_class = StandardResultsSetPagination
     search_fields = ['name', ]
     filterset_fields = ['id', 'name']
     lookup_field = 'id'
@@ -121,7 +113,6 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [UserPermission]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    pagination_class = StandardResultsSetPagination
     search_fields = ['name', ]
     filterset_fields = ['id', 'name']
     lookup_field = 'id'
@@ -137,7 +128,6 @@ class QuoteViewSet(viewsets.ModelViewSet):
     serializer_class = QuoteSerializer
     permission_classes = [UserPermission]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    pagination_class = StandardResultsSetPagination
     search_fields = ['quote', 'content', 'author__name', 'author__title', 'author__genre', 'book__name', 'tag__name',
                      'category__name', ]
     filterset_fields = ['id',]
@@ -165,7 +155,6 @@ class CarouselViewSet(viewsets.ModelViewSet):
     serializer_class = CarouselSerializer
     permission_classes = [UserPermission]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    pagination_class = StandardResultsSetPagination
     search_fields = ['carousel_title', 'carousel_text', ]
     filterset_fields = ['id', 'carousel_title', 'carousel_text', ]
     lookup_field = 'id'

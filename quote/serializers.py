@@ -89,3 +89,8 @@ class InteractSerializer(serializers.ModelSerializer):
     class Meta:
         model = interact
         fields = '__all__'
+
+class CarouselSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = carousel
+        fields = '__all__'

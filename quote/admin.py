@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import USER, Author, Quote, Book, Tag, interact, Category
+from .models import USER, Author, Quote, Book, Tag, interact, Category, carousel
 from django.utils.safestring import mark_safe
 
 
@@ -16,7 +16,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'title', 'genre', 'birth_date', 'death_date', 'birth_country','thumbnail')
+    list_display = ('name', 'title', 'genre', 'birth_date', 'death_date', 'birth_country', 'thumbnail')
     list_filter = ('name', 'title', 'genre', 'birth_date', 'death_date', 'birth_country',)
     list_display_links = ('name', 'title', 'genre', 'birth_date', 'death_date', 'birth_country', 'thumbnail')
     search_fields = ('name', 'title', 'genre', 'birth_date', 'death_date', 'birth_country')
@@ -81,6 +81,20 @@ class CategoryAdmin(admin.ModelAdmin):
     fieldsets = ()
 
 
+class CarouselAdmin(admin.ModelAdmin):
+    list_display = ('carousel_title', 'carousel_text', 'thumbnail')
+    list_filter = ('carousel_title', 'carousel_text', 'image')
+    list_display_links = ('carousel_title', 'carousel_text', 'thumbnail')
+    search_fields = ('carousel_title', 'carousel_text', 'image')
+    ordering = ('carousel_title', 'carousel_text', 'image')
+
+    def thumbnail(self, instance):
+        if instance.image.name != '':
+            return mark_safe(
+                f'<img src="{instance.image.url}" style="width: 70px; height:70px; object-fit: cover; " />')
+        return 'No Image'
+
+
 admin.site.register(USER, UserAdmin)
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Quote, QuoteAdmin)
@@ -88,3 +102,4 @@ admin.site.register(Book, BookAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(interact, interactAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(carousel, CarouselAdmin)
